@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static org.junit.Assert.fail;
+
 public class UserServiceTest {
     private final UserService userService = new UserServiceImpl();
 
@@ -20,7 +22,7 @@ public class UserServiceTest {
             userService.dropUsersTable();
             userService.dropUsersTable();
         } catch (Exception e) {
-            Assert.fail("При тестировании удаления таблицы произошло исключение\n" + e);
+            fail("При тестировании удаления таблицы произошло исключение\n" + e);
         }
     }
 
@@ -30,7 +32,7 @@ public class UserServiceTest {
             userService.dropUsersTable();
             userService.createUsersTable();
         } catch (Exception e) {
-            Assert.fail("При тестировании создания таблицы пользователей произошло исключение\n" + e.getMessage());
+            fail("При тестировании создания таблицы пользователей произошло исключение\n" + e.getMessage());
         }
     }
 
@@ -47,11 +49,11 @@ public class UserServiceTest {
                     || !testLastName.equals(user.getLastName())
                     || testAge != user.getAge()
             ) {
-                Assert.fail("User был некорректно добавлен в базу данных");
+                fail("User был некорректно добавлен в базу данных");
             }
 
         } catch (Exception e) {
-            Assert.fail("Во время тестирования сохранения пользователя произошло исключение\n" + e);
+            fail("Во время тестирования сохранения пользователя произошло исключение\n" + e);
         }
     }
 
@@ -63,7 +65,7 @@ public class UserServiceTest {
             userService.saveUser(testName, testLastName, testAge);
             userService.removeUserById(1L);
         } catch (Exception e) {
-            Assert.fail("При тестировании удаления пользователя по id произошло исключение\n" + e);
+            fail("При тестировании удаления пользователя по id произошло исключение\n" + e);
         }
     }
 
@@ -76,10 +78,10 @@ public class UserServiceTest {
             List<User> userList = userService.getAllUsers();
 
             if (userList.size() != 1) {
-                Assert.fail("Проверьте корректность работы метода сохранения пользователя/удаления или создания таблицы");
+                fail("Проверьте корректность работы метода сохранения пользователя/удаления или создания таблицы");
             }
         } catch (Exception e) {
-            Assert.fail("При попытке достать всех пользователей из базы данных произошло исключение\n" + e);
+            fail("При попытке достать всех пользователей из базы данных произошло исключение\n" + e);
         }
     }
 
@@ -92,10 +94,10 @@ public class UserServiceTest {
             userService.cleanUsersTable();
 
             if (userService.getAllUsers().size() != 0) {
-                Assert.fail("Метод очищения таблицы пользователей реализован не корректно");
+                fail("Метод очищения таблицы пользователей реализован не корректно");
             }
         } catch (Exception e) {
-            Assert.fail("При тестировании очистки таблицы пользователей произошло исключение\n" + e);
+            fail("При тестировании очистки таблицы пользователей произошло исключение\n" + e);
         }
     }
 
