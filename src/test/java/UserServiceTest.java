@@ -1,7 +1,6 @@
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
@@ -10,7 +9,6 @@ import static org.junit.Assert.fail;
 
 public class UserServiceTest {
     private final UserService userService = new UserServiceImpl();
-
     private final String testName = "Ivan";
     private final String testLastName = "Ivanov";
     private final byte testAge = 5;
@@ -81,7 +79,7 @@ public class UserServiceTest {
                 fail("Проверьте корректность работы метода сохранения пользователя/удаления или создания таблицы");
             }
         } catch (Exception e) {
-            fail("При попытке достать всех пользователей из базы данных произошло исключение\n" + e);
+         fail("При попытке достать всех пользователей из базы данных произошло исключение\n" + e);
         }
     }
 
