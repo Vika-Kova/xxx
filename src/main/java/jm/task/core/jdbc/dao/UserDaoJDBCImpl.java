@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDaoJDBCImpl   implements UserDao {
+public class UserDaoJDBCImpl implements UserDao {
 
     private static final Connection connection = Util.getConnection();
 
@@ -18,11 +18,7 @@ public class UserDaoJDBCImpl   implements UserDao {
 
     public void createUsersTable() {
         try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS users " +
-                    "(id BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL " +
-                    "name VARCHAR(64) ,+" +
-                    " lastName VARCHAR(64) , " +
-                    "age TINYINT)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS users (id BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL, name VARCHAR(255), lastName VARCHAR(255), age INT)");
 
 
             System.out.println("Таблица создана");
@@ -63,7 +59,7 @@ public class UserDaoJDBCImpl   implements UserDao {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("при тестировании создания таблицы пользователей произошло исключение\n" +e.getMessage());
+            System.out.println("при тестировании создания таблицы пользователей произошло исключение\n" + e.getMessage());
         }
     }
 
