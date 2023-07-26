@@ -3,7 +3,6 @@ package jm.task.core.jdbc.dao;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +17,12 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void createUsersTable() {
         try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS users (id BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL, name VARCHAR(255), lastName VARCHAR(255), age INT)");
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS users(id BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL, name VARCHAR(255), lastName VARCHAR(255), age INT)");
 
-
-            System.out.println("Таблица создана");
+            System.out.println("Таблица пользователей создана");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     public void dropUsersTable() {
@@ -90,7 +87,6 @@ public class UserDaoJDBCImpl implements UserDao {
             System.out.println("Таблица очищена");
         } catch (SQLException e) {
             e.printStackTrace();
-
         }
     }
 }
