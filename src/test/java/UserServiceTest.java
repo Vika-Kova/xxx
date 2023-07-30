@@ -69,19 +69,25 @@ public class UserServiceTest {
 
     @Test
     public void getAllUsers() {
-        try {
-            userService.dropUsersTable();
-            userService.createUsersTable();
-            userService.saveUser(testName, testLastName, testAge);
-            List<User> userList = userService.getAllUsers();
+    try
 
-            if (userList.size() != 1) {
-                fail("Проверьте корректность работы метода сохранения пользователя/удаления или создания таблицы");
-            }
-        } catch (Exception e) {
-         fail("При попытке достать всех пользователей из базы данных произошло исключение\n" + e);
+    {
+        userService.dropUsersTable();
+        userService.createUsersTable();
+        userService.saveUser(testName, testLastName, testAge);
+        List<User> userList = userService.getAllUsers();
+
+        if (userList.size() != 1) {
+            fail("Проверьте корректность работы метода сохранения пользователя/удаления или создания таблицы");
         }
+    } catch(
+    Exception e)
+
+    {
+        fail("При попытке достать всех пользователей из базы данных произошло исключение\n" + e);
     }
+
+}
 
     @Test
     public void cleanUsersTable() {
