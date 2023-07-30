@@ -12,7 +12,6 @@ import java.util.List;
 import static jm.task.core.jdbc.util.Util.getSessionFactory;
 
 public class UserDaoHibernateImpl implements UserDao {
-
     Transaction transaction = null;
 
     public UserDaoHibernateImpl() {
@@ -23,7 +22,6 @@ public class UserDaoHibernateImpl implements UserDao {
     public void createUsersTable() {
         try (Session session = getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-
             String sql = "CREATE TABLE IF NOT EXISTS users(id BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL, name VARCHAR(255), lastName VARCHAR(255), age INT)";
             Query query = session.createSQLQuery(sql).addEntity(User.class);
             query.executeUpdate();
@@ -40,7 +38,6 @@ public class UserDaoHibernateImpl implements UserDao {
     public void dropUsersTable() {
         try (Session session = getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-
             String sql = "DROP TABLE IF EXISTS users";//?
             Query query = session.createSQLQuery(sql).addEntity(User.class);
             query.executeUpdate();
