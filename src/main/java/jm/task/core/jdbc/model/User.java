@@ -2,13 +2,12 @@ package jm.task.core.jdbc.model;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "users")
 public class User {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)//генерация id через Autoincr. в mysql
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
