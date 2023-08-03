@@ -5,18 +5,19 @@ import jm.task.core.jdbc.util.Util;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 import static jm.task.core.jdbc.util.Util.getSessionFactory;
 
 public class UserDaoHibernateImpl implements UserDao {
-    SessionFactory sessionFactory = new Util().getSessionFactory();
+    private final SessionFactory sessionFactory = new Util().getSessionFactory();
 
     @Override
     public void createUsersTable() {
         try (Session session = getSessionFactory().getCurrentSession()) {
             String sql = "CREATE TABLE IF NOT EXISTS users(id BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL, name VARCHAR(255), lastName VARCHAR(255), age INT)";
-            session.beginTransaction();
+            session.beginTransaction().rollback();
             session.createSQLQuery(sql);
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -43,9 +44,10 @@ public class UserDaoHibernateImpl implements UserDao {
             session.save(new User(name, lastName, age));
             session.getTransaction().commit();
         } catch (Exception e) {
-            e.printStackTrace();
+          EntityManager session = null;
+                session.getTransaction().rollback();
+            }
         }
-    }
 
     @Override
     public void removeUserById(long id) {
@@ -54,7 +56,6 @@ public class UserDaoHibernateImpl implements UserDao {
             session.createSQLQuery("DELETE User WHERE ID = :id").setParameter("id", id).executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -75,6 +76,9 @@ public class UserDaoHibernateImpl implements UserDao {
             session.beginTransaction();
             session.createSQLQuery("DELETE FROM users").executeUpdate();
             session.getTransaction().commit();
+        } catch (Exception e) {
+            EntityManager session = null;
+            session.getTransaction().rollback();
         }
     }
 }
