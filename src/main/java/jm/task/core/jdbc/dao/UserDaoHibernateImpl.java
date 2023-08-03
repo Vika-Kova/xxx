@@ -17,7 +17,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void createUsersTable() {
         try (Session session = getSessionFactory().getCurrentSession()) {
             String sql = "CREATE TABLE IF NOT EXISTS users(id BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL, name VARCHAR(255), lastName VARCHAR(255), age INT)";
-            session.beginTransaction().rollback();
+            session.beginTransaction();
             session.createSQLQuery(sql);
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -44,10 +44,10 @@ public class UserDaoHibernateImpl implements UserDao {
             session.save(new User(name, lastName, age));
             session.getTransaction().commit();
         } catch (Exception e) {
-          EntityManager session = null;
-                session.getTransaction().rollback();
-            }
+            EntityManager session = null;
+            session.getTransaction().rollback();
         }
+    }
 
     @Override
     public void removeUserById(long id) {
